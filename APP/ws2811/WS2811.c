@@ -87,7 +87,7 @@ void LED_SPI_SendBits(uint8_t bits)
     for (i = 0x80; i >= 0x01; i >>= 1)
     {
 				//0x80 = 1000 0000
-				//(bits & i)按位与，之后从8bit 转成 16bit 的zero和one
+				//(bits & i)按位与，之后从8bits 转成 16bits 的zero和one
 				//RGB的每1bit需要2byte(16b)写到缓存数组中
         LED_SPI_WriteByte((bits & i) ? one : zero);
     }
@@ -111,9 +111,9 @@ void LED_SPI_SendPixel(uint32_t color)
 	  uint8_t Red, Green, Blue;  // 三原色
 	// 绿 红 蓝 三原色分解color，0XAA11BB，r:AA(170),g:11(17),b:BB(187)
 	//
-	  Red   = color>>16; //得到AA
-	  Green = color>>8;	//得到11
-	  Blue  = color;		//得到BB
+	  Red   = color>>16; //得到8bits AA
+	  Green = color>>8;	//得到8bits 11
+	  Blue  = color;		//得到8bits BB
     LED_SPI_SendBits(Green);
     LED_SPI_SendBits(Red);
     LED_SPI_SendBits(Blue);
